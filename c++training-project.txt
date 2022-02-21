@@ -1,0 +1,64 @@
+Library Management system:
+
+Admin             student
+
+when ?
+in 3 week (before 30 feb)
+
+=================
+hash function
+serching algo
+=================
+
+how ?
+1) Add/Remove/Edit book: To add, remove or modify a book or book item.
+2) Search catalog: To search books by title, author, subject or publication date.
+3) Register new account/cancel membership: To add a new member or cancel the membership of an existing member.
+
+
+
+
+Functional Specification 
+=========================
+
+Main Screen :
+==============
+
+1) Admin / Librarian
+2) Student
+3) Application Close
+
+Enter your choice :
+
+=============================================
+
+If we select the student as an option :
+option list are given below :
+1) View books
+2) search for a book (search books by title, author, publication date)
+	- title / book name
+	- author
+	- publication date
+3) go back to front menu
+4) close
+
+Enter your choise :
+
+================================================
+
+If we selece the Librarian / Admin as an option option are given below :
+
+1) View BookList
+2) Search for a Book
+	- title / book name
+	- author
+	- publication date
+3) Modify/Add book (add, remove or modify a book or book item)
+4) Issue Book
+	(Student data & issued book details)
+5) Go Back to front menu
+6)Close
+
+Enter your choise :
+
+=================================================
