@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1646980665 source:c:\users\hp\desktop\library-management-system\lms\main.cpp
+	<iostream>
+	"lms.cpp"
+
+1646984091 c:\users\hp\desktop\library-management-system\lms\lms.cpp
+	"lms.h"
+
+1646983640 c:\users\hp\desktop\library-management-system\lms\lms.h
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<fstream>
+	<string.h>
+	<conio.h>
+
