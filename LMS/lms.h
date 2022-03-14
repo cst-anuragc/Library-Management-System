@@ -10,10 +10,11 @@
 using namespace std;
 
 class Librarian ;
-
+class Student;
+void get();
 class Lib
 {
-   public:
+   protected:
        char bookname[100],auname[50],sc[20],sc1[50];
        int q,B,p;
        Lib()
@@ -27,10 +28,11 @@ class Lib
            p=0;
        }
 
+
 };
 
 class Student : public Lib{
-public :
+public:
 
     void booklist(int);
     void see(int);
@@ -38,15 +40,17 @@ public :
     int branch(int);
     void show(int);
 
-  //  friend class Librarian ;
+    //friend void get() ;
 
 } ;
 
 class Librarian : public Student{
 public:
 
+   // void booklist(int);
+   // void see(int);
+  //  int branch(int);
     void pass();
-    void get();
     void password();
     void getdata();
     void modify();
@@ -56,6 +60,7 @@ public:
     void fine(int,int,int,int,int,int);
 
 };
+
 
 
 #endif // LMS_H_INCLUDED

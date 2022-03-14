@@ -4,8 +4,8 @@ using namespace std;
 
 int main()
 {
-    Librarian obj;
-    obj.get();
+
+    get();
     getch();
 
     return 0;

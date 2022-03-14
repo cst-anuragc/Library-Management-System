@@ -35,6 +35,7 @@ void Student::show(int i)
         cout<<"\n\t\tBook's Quantity : "<<q<<endl;
     }
 }
+
   void Student::booklist(int i)
   {
                 int b,r=0;
@@ -69,8 +70,9 @@ void Student::show(int i)
                 cout<<"\n\t\tPress any key to continue.....";
                 getch();
                 system("cls");
-                if(i==1)
-                    student();
+                get();
+               // if(i==1)
+                //    student();
               //  else
               //      librarian();
     }
@@ -320,8 +322,9 @@ void Student::show(int i)
           case 6: return 6;
                   break;
           case 7: system("cls");
-                  if(x==1)
-                  student();
+                  get();
+                 // if(x==1)
+                  //student();
                   //else
                   //  librarian();
           default : cout<<"\n\t\tPlease enter correct option :(";
@@ -343,8 +346,9 @@ void Student::show(int i)
             cout<<"\n\t\t->Press any key to continue.....";
             getch();
             system("cls");
-            if(x==1)
-            student();
+            get();
+           // if(x==1)
+            //student();
          //   else
           //  librarian();
         }
@@ -652,8 +656,11 @@ void Librarian::der(char st[],int b,int x)
     intf.close();
 }
 
-void Librarian::get()
+void get()
 {
+    Librarian libr;
+    Student stu;
+    repeat :
    int i;
         cout<<"\n\t*********** LIBRARY MANAGEMENT SYSTEM ***********\n"<<"\n\t\t\t    Library Management System C++\n";
         cout<<"\n\t\t>>Please Choose Any Option To login \n";
@@ -663,19 +670,19 @@ void Librarian::get()
         if(i==1)
         {
             system("cls");
-            student();
+            stu.student();
         }
         else if(i==2)
-            pass();
+            libr.pass();
 
         else if(i==3)
             exit(0);
         else
         {
-            cout<<"\n\t\tPlease enter correct option :(";
+            cout<<"\n\t\tPlease enter correct option :(\n\n\t\t ****** PRESS ANYTHINGS TO GO BACK ****** \n" ;
             getch();
             system("CLS");
-           get();
+            goto repeat;
         }
 }
 void Student::student()
@@ -693,7 +700,7 @@ void Student::student()
             else if(i==3)
             {
                 system("cls");
-         //       get();
+                get();
             }
             else if(i==4)
                 exit(0);
