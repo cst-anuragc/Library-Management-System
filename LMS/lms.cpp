@@ -6,37 +6,35 @@ void Librarian::getdata()
                     fflush(stdin);
                     cout<<"\n\t\tEnter the details :-\n";
                     cout<<"\n\t\tEnter Book's Name : ";
-                    cin.getline(bookname,100);
-                    for(i=0;bookname[i]!='\0';i++)
+                    cin.getline(Bk.bname,50);
+                    for(i=0;Bk.bname[i]!='\0';i++)
                     {
-                    if(bookname[i]>='a'&&bookname[i]<='z')
-                       bookname[i]-=32;
+                    if(Bk.bname[i]>='a'&&Bk.bname[i]<='z')
+                       Bk.bname[i]-=32;
                     }
                     cout<<"\n\t\tEnter Author's Name : ";
-                    cin.getline(auname,50);
+                    cin.getline(Bk.aname,20);
                     cout<<"\n\t\tEnter Publication name : ";
-                    cin.getline(sc1,50);
+                    cin.getline(Bk.bPublisher,50);
                     cout<<"\n\t\tEnter Book's ID : ";
-                    cin.getline(sc,20);
+                    cin.getline(Bk.bId,6);
                     cout<<"\n\t\tEnter Book's Price : ";
-                    cin>>p;
+                    cin>>Bk.price;
                     cout<<"\n\t\tEnter Book's Quantity : ";
-                    cin>>q;
+                    cin>>Bk.quantity;
 }
-void Student::show(int i)
+void Librarian::show(int i)
 {
-    cout<<"\n\t\tBook Name : "<<bookname<<endl;
-    cout<<"\n\t\tBook's Author Name : "<<auname<<endl;
-    cout<<"\n\t\tBook's ID : "<<sc<<endl;
-    cout<<"\n\t\tBook's Publication : "<<sc1<<endl;
-    if(i==2)
-    {
-        cout<<"\n\t\tBook's Price : "<<p<<endl;
-        cout<<"\n\t\tBook's Quantity : "<<q<<endl;
-    }
+    cout<<"\n\t\tBook Name : "<<Bk.bname<<endl;
+    cout<<"\n\t\tBook's Author Name : "<<Bk.aname<<endl;
+    cout<<"\n\t\tBook's ID : "<<Bk.bId<<endl;
+    cout<<"\n\t\tBook's Publication : "<<Bk.bPublisher<<endl;
+    if(i == 2)
+    cout<<"\n\t\tBook's Price : "<<Bk.price<<endl;
+    cout<<"\n\t\tBook's Quantity : "<<Bk.quantity<<endl;
 }
 
-  void Student::booklist(int i)
+  void Librarian::booklist(int i)
   {
                 int b,r=0;
                 system("cls");
@@ -51,9 +49,9 @@ void Student::show(int i)
                     intf.read((char*)this,sizeof(*this));
                 while(!intf.eof())
                 {
-                    if(b==B)
+                    if(b==Bk.br)
                     {
-                        if(q==0 && i==1)
+                        if(Bk.quantity==0 && i == 1)
                         {
 
                         }
@@ -70,12 +68,14 @@ void Student::show(int i)
                 cout<<"\n\t\tPress any key to continue.....";
                 getch();
                 system("cls");
-                get();
-               // if(i==1)
-                //    student();
-              //  else
-              //      librarian();
+                if(i == 1)
+                    student_menu();
+                else
+                    librarian();
+
     }
+
+
   void Librarian::modify()
   {
     char ch,st1[100];
@@ -116,8 +116,8 @@ void Student::show(int i)
                                 intf.read((char*)this,sizeof(*this));
                                 while(!intf.eof())
                                     {
-                                        for(i=0;b==B&&bookname[i]!='\0'&&st1[i]!='\0'&&(st1[i]==bookname[i]||st1[i]==bookname[i]+32);i++);
-                                        if(bookname[i]=='\0'&&st1[i]=='\0')
+                                        for(i=0;Bk.br==b&&Bk.bname[i]!='\0'&&st1[i]!='\0'&&(st1[i]==Bk.bname[i]||st1[i]==Bk.bname[i]+32);i++);
+                                        if(Bk.bname[i]=='\0'&&st1[i]=='\0')
                                             {
                                                 cont++;
                                                 getdata();
@@ -139,8 +139,8 @@ void Student::show(int i)
                                 intf.read((char*)this,sizeof(*this));
                                 while(!intf.eof())
                                     {
-                                        for(i=0;b==B&&sc[i]!='\0'&&st1[i]!='\0'&&st1[i]==sc[i];i++);
-                                        if(sc[i]=='\0'&&st1[i]=='\0')
+                                        for(i=0;b==Bk.br&&Bk.bId[i]!='\0'&&st1[i]!='\0'&&st1[i]==Bk.bId[i];i++);
+                                        if(Bk.bId[i]=='\0'&&st1[i]=='\0')
                                             {
                                                 cont++;
                                                 getdata();
@@ -177,7 +177,7 @@ void Student::show(int i)
     else if(i==2)
     {
                     system("cls");
-                    B=branch(2);
+                    Bk.br=branch(2);
                     system("cls");
                     getdata();
                     ofstream outf("Booksdata.txt",ios::app|ios::binary);
@@ -216,8 +216,8 @@ void Student::show(int i)
                                 intf.read((char*)this,sizeof(*this));
                                 while(!intf.eof())
                                     {
-                                        for(i=0;b==B&&bookname[i]!='\0'&&st1[i]!='\0'&&(st1[i]==bookname[i]||st1[i]==bookname[i]+32);i++);
-                                        if(bookname[i]=='\0'&&st1[i]=='\0')
+                                        for(i=0;b==Bk.br&&Bk.bname[i]!='\0'&&st1[i]!='\0'&&(st1[i]==Bk.bname[i]||st1[i]==Bk.bname[i]+32);i++);
+                                        if(Bk.bname[i]=='\0'&&st1[i]=='\0')
                                             {
                                                 cont++;
                                                 intf.read((char*)this,sizeof(*this));
@@ -244,8 +244,8 @@ void Student::show(int i)
                                 intf.read((char*)this,sizeof(*this));
                                 while(!intf.eof())
                                     {
-                                        for(i=0;b==B&&sc[i]!='\0'&&st1[i]!='\0'&&st1[i]==sc[i];i++);
-                                        if(sc[i]=='\0'&&st1[i]=='\0')
+                                        for(i=0;b==Bk.br&&Bk.bId[i]!='\0'&&st1[i]!='\0'&&st1[i]==Bk.bId[i];i++);
+                                        if(Bk.bId[i]=='\0'&&st1[i]=='\0')
                                             {
                                                 cont++;
                                                 intf.read((char*)this,sizeof(*this));
@@ -300,11 +300,11 @@ void Student::show(int i)
     librarian();
 
   }
-  int Student::branch(int x)
+  int Librarian::branch(int x)
   {
       int i;
       cout<<"\n\t\t>>Please Choose one Branch :-\n";
-      cout<<"\n\t\t1.Class 12th\n\n\t\t2.CS\n\n\t\t3.EC\n\n\t\t4.CIVIL\n\n\t\t5.MECHANICAL\n\n\t\t6.1ST YEAR\n\n\t\t7.Go to menu\n";
+      cout<<"\n\t\t1.Class 12th\n\n\t\t2.CS\n\n\t\t3.EC\n\n\t\t4.CIVIL\n\n\t\t5.MECHANICAL\n\n\t\t6.GK Books\n\n\t\t7.Go to main menu\n";
       cout<<"\n\t\tEnter youur choice : ";
       cin>>i;
       switch(i)
@@ -322,18 +322,18 @@ void Student::show(int i)
           case 6: return 6;
                   break;
           case 7: system("cls");
-                  get();
-                 // if(x==1)
-                  //student();
-                  //else
-                  //  librarian();
+                  if(x==1)
+                    student_menu();
+                  else
+                    librarian();
           default : cout<<"\n\t\tPlease enter correct option :(";
                     getch();
                     system("cls");
                     branch(x);
         }
   }
-  void Student::see(int x)
+
+  void Librarian::see(int x)
   {
       int i,b,cont=0;
       char ch[100];
@@ -346,11 +346,10 @@ void Student::show(int i)
             cout<<"\n\t\t->Press any key to continue.....";
             getch();
             system("cls");
-            get();
-           // if(x==1)
-            //student();
-         //   else
-          //  librarian();
+            if(x==1)
+                student_menu();
+            else
+                librarian();
         }
 
       system("cls");
@@ -367,8 +366,8 @@ void Student::show(int i)
           system("cls");
           while(!intf.eof())
           {
-            for(i=0;b==B&&q!=0&&bookname[i]!='\0'&&ch[i]!='\0'&&(ch[i]==bookname[i]||ch[i]==bookname[i]+32);i++);
-            if(bookname[i]=='\0'&&ch[i]=='\0')
+            for(i=0;b==Bk.br&&Bk.quantity!=0&&Bk.bname[i]!='\0'&&ch[i]!='\0'&&(ch[i]==Bk.bname[i]||ch[i]==Bk.bname[i]+32);i++);
+            if(Bk.bname[i]=='\0'&&ch[i]=='\0')
                 {
                         cout<<"\n\t\tBook Found :-\n";
                         show(x);
@@ -385,8 +384,8 @@ void Student::show(int i)
           system("cls");
           while(!intf.eof())
           {
-              for(i=0;b==B&&q!=0&&sc[i]!='\0'&&ch[i]!='\0'&&ch[i]==sc[i];i++);
-              if(sc[i]=='\0'&&ch[i]=='\0')
+              for(i=0;b==Bk.br&&Bk.quantity!=0&&Bk.bId[i]!='\0'&&ch[i]!='\0'&&ch[i]==Bk.bId[i];i++);
+              if(Bk.bId[i]=='\0'&&ch[i]=='\0')
                 {
                             cout<<"\n\t\tBook Found :-\n";
                             show(x);
@@ -412,45 +411,44 @@ void Student::show(int i)
     cout<<"\n\t\tPress any key to continue.....";
     getch();
     system("cls");
-    if(x==1)
-    student();
-   // else
-    //librarian();
-
-
+    if(x == 1)
+        student_menu();
+    else
+        librarian();
   }
+
 void Librarian::issue()
 {
-    char st[50],st1[20];
+    char st[50],st1[6];
     int b,i,j,d,m,y,dd,mm,yy,cont=0;
     system("cls");
     cout<<"\n\t\t->Please Choose one option :-\n";
-    cout<<"\n\t\t1.Issue Book\n\n\t\t2.View Issued Book\n\n\t\t3.Search student who isuued books\n\n\t\t4.Reissue Book\n\n\t\t5.Return Book\n\n\t\t6.Go back to menu\n\n\t\tEnter Your Choice : ";
+    cout<<"\n\t\t1.Issue Book\n\n\t\t2.View Issued Book\n\n\t\t3.Search student who issued books\n\n\t\t4.Reissue Book\n\n\t\t5.Return Book\n\n\t\t6.Go back to menu\n\n\t\tEnter Your Choice : ";
     cin>>i;
     fflush(stdin);
     if(i==1)
     {
-    system("cls");
-    b=branch(2);
-    system("cls");
-    fflush(stdin);
-    cout<<"\n\t\t->Please Enter Details :-\n";
-    cout<<"\n\t\tEnter Book Name : ";
-    cin.getline(bookname,100);
-    cout<<"\n\t\tEnter Book's ID : ";
-    cin.getline(sc,20);
-    //strcpy(st,sc);
-    der(sc,b,1);
-    cout<<"\n\t\tEnter Student Name : ";
-    cin.getline(auname,100);
-    cout<<"\n\t\tEnter Student's ID : ";
-    cin.getline(sc1,20);
-    cout<<"\n\t\tEnter date : ";
-    cin>>q>>B>>p;
-    ofstream outf("student.txt",ios::binary|ios::app);
-    outf.write((char*)this,sizeof(*this));
-    outf.close();
-    cout<<"\n\n\t\tIssue Successfully.\n";
+        system("cls");
+        b=branch(2);
+        system("cls");
+        fflush(stdin);
+        cout<<"\n\t\t->Please Enter Details :-\n";
+        cout<<"\n\t\tEnter Book Name : ";
+        cin.getline(Stu.book_name,50);
+        cout<<"\n\t\tEnter Book's ID : ";
+        cin.getline(Stu.book_Id,6);
+        //strcpy(st,sc);
+        der(Stu.book_Id,b,1);
+        cout<<"\n\t\tEnter Student Name : ";
+        cin.getline(Stu.stu_name,50);
+        cout<<"\n\t\tEnter Student's ID : ";
+        cin.getline(Stu.stu_Id,6);
+        cout<<"\n\t\tEnter date : ";
+        cin>>Stu.ddd>>Stu.mmm>>Stu.yyy;
+        ofstream outf("student.txt",ios::binary|ios::app);
+        outf.write((char*)this,sizeof(*this));
+        outf.close();
+        cout<<"\n\n\t\tIssue Successfully.\n";
     }
     else if(i==2)
     {
@@ -463,7 +461,7 @@ void Librarian::issue()
     {
     i++;
     cout<<"\n\t\t********** "<<i<<". ********** \n";
-    cout<<"\n\t\tStudent Name : "<<auname<<"\n\t\t"<<"Student's ID : "<<sc1<<"\n\t\t"<<"Book Name : "<<bookname<<"\n\t\t"<<"Book's ID : "<<sc<<"\n\t\t"<<"Date : "<<q<<"/"<<B<<"/"<<p<<"\n";
+    cout<<"\n\t\tStudent Name : "<<Stu.book_name<<"\n\t\t"<<"Student's ID : "<<Stu.stu_Id<<"\n\t\t"<<"Book Name : "<<Stu.book_name<<"\n\t\t"<<"Book's ID : "<<Stu.book_Id<<"\n\t\t"<<"Date : "<<Stu.ddd<<"/"<<Stu.mmm<<"/"<<Stu.yyy<<"\n";
     intf.read((char*)this,sizeof(*this));
     }
     intf.close();
@@ -476,27 +474,27 @@ void Librarian::issue()
         cout<<"\n\n\t\tEnter Student Name : ";
         cin.getline(st,50);
         cout<<"\n\n\t\tEnter Student's ID : ";
-        cin.getline(st1,20);
+        cin.getline(st1,6);
         system("cls");
         ifstream intf("student.txt",ios::binary);
         intf.read((char*)this,sizeof(*this));
         cont=0;
         while(!intf.eof())
         {
-              for(i=0;sc1[i]!='\0'&&st1[i]!='\0'&&st1[i]==sc1[i];i++);
-              if(sc1[i]=='\0'&&st1[i]=='\0')
+              for(i=0;Stu.stu_Id[i]!='\0'&&st1[i]!='\0'&&Stu.stu_Id[i]==st1[i];i++);
+              if(Stu.stu_Id[i]=='\0'&&st1[i]=='\0')
               {
                   cont++;
                   if(cont==1)
                   {
                       cout<<"\n\t\t->The Details are :-\n";
-                      cout<<"\n\t\tStudent Name : "<<auname;
-                      cout<<"\n\t\tStudent's ID : "<<sc1;
+                      cout<<"\n\t\tStudent Name : "<<Stu.stu_name;
+                      cout<<"\n\t\tStudent's ID : "<<Stu.stu_Id;
                   }
                   cout<<"\n\n\t\t******* "<<cont<<". Book details *******\n";
-                  cout<<"\n\t\tBook Name : "<<bookname;
-                  cout<<"\n\t\tBook's ID : "<<sc;
-                  cout<<"\n\t\tDate : "<<q<<"/"<<B<<"/"<<p<<"\n";
+                  cout<<"\n\t\tBook Name : "<<Stu.book_name;
+                  cout<<"\n\t\tBook's ID : "<<Stu.book_Id;
+                  cout<<"\n\t\tDate : "<<Stu.ddd<<"/"<<Stu.mmm<<"/"<<Stu.yyy<<"\n";
               }
                       intf.read((char*)this,sizeof(*this));
 
@@ -513,22 +511,22 @@ void Librarian::issue()
     cout<<"\n\n\t\tEnter Student's ID : ";
     cin.getline(st,50);
     cout<<"\n\t\tEnter Book's ID : ";
-    cin.getline(st1,20);
+    cin.getline(st1,6);
     fstream intf("student.txt",ios::in|ios::out|ios::ate|ios::binary);
     intf.seekg(0);
     intf.read((char*)this,sizeof(*this));
     while(!intf.eof())
         {
-            for(i=0;sc[i]!='\0'&&st1[i]!='\0'&&st1[i]==sc[i];i++);
-            for(j=0;sc1[j]!='\0'&&st[j]!='\0'&&st[j]==sc1[j];j++);
-            if(sc[i]=='\0'&&sc1[j]=='\0'&&st[j]=='\0'&&st1[i]=='\0')
+            for(i=0;Stu.book_Id[i]!='\0'&&st1[i]!='\0'&&st1[i]==Stu.book_Id[i];i++);
+            for(j=0;Stu.stu_Id[j]!='\0'&&st[j]!='\0'&&st[j]==Stu.stu_Id[j];j++);
+            if(Stu.book_Id[i]=='\0'&&Stu.stu_Id[j]=='\0'&&st[j]=='\0'&&st1[i]=='\0')
                 {
-                    d=q;
-                    m=B;
-                    y=p;
+                    d=Stu.ddd;
+                    m=Stu.mmm;
+                    y=Stu.yyy;
                     cout<<"\n\t\tEnter New Date : ";
-                    cin>>q>>B>>p;
-                    fine(d,m,y,q,B,p); //fn1
+                    cin>>Stu.ddd>>Stu.mmm>>Stu.yyy;
+                    fine(d,m,y,Stu.ddd,Stu.mmm,Stu.yyy); //fn1
                     intf.seekp(intf.tellp()-sizeof(*this)); //fn3
                     intf.write((char*)this,sizeof(*this)); //fn5
                     cout<<"\n\n\t\tReissue successfully."; //fn3
@@ -546,10 +544,10 @@ void Librarian::issue()
     fflush(stdin);
     cout<<"\n\t\t->Please Enter Details :-\n";
     cout<<"\n\t\tEnter Book's ID : ";
-    cin.getline(st1,20);
-    der(st1,b,2);
+    cin.getline(st1,6);
+    der(Stu.stu_Id,b,2);
     cout<<"\n\n\t\tEnter Student's ID : ";
-    cin.getline(st,20);
+    cin.getline(st,6);
     cout<<"\n\t\tEnter Present date : ";
     cin>>d>>m>>y;
     ofstream outf("temp.txt",ios::app|ios::binary);
@@ -557,13 +555,13 @@ void Librarian::issue()
     intf.read((char*)this,sizeof(*this));
     while(!intf.eof())
         {
-            for(i=0;sc[i]!='\0'&&st1[i]!='\0'&&st1[i]==sc[i];i++);
-            for(j=0;sc1[j]!='\0'&&st[j]!='\0'&&st[j]==sc1[j];j++);
-            if(sc[i]=='\0'&&sc1[j]=='\0'&&st[j]=='\0'&&st1[i]=='\0'&&cont==0)
+            for(i=0;Stu.book_Id[i]!='\0'&&st1[i]!='\0'&&st1[i]==Stu.book_Id[i];i++);
+            for(j=0;Stu.stu_Id[j]!='\0'&&st[j]!='\0'&&st[j]==Stu.stu_Id[j];j++);
+            if(Stu.book_Id[i]=='\0'&&Stu.stu_Id[j]=='\0'&&st[j]=='\0'&&st1[i]=='\0'&&cont==0)
                 {
                     cont++;
                     intf.read((char*)this,sizeof(*this));
-                    fine(q,B,p,d,m,y);
+                    fine(Stu.ddd,Stu.mmm,Stu.yyy,d,m,y);
                     cout<<"\n\t\tReturned successfully.";
                 }
             else
@@ -592,6 +590,7 @@ void Librarian::issue()
     system("cls");
     librarian();
 }
+
 void Librarian::fine(int d,int m,int y,int dd,int mm,int yy)
 {
     long int n1,n2;
@@ -619,6 +618,7 @@ void Librarian::fine(int d,int m,int y,int dd,int mm,int yy)
     cout<<"\n\t\tThe Total Fine is : "<<n2;
 
 }
+
 void Librarian::der(char st[],int b,int x)
 {
     int i,cont=0;
@@ -627,17 +627,17 @@ void Librarian::der(char st[],int b,int x)
     intf.read((char*)this,sizeof(*this));
     while(!intf.eof())
     {
-        for(i=0;b==B&&sc[i]!='\0'&&st[i]!='\0'&&st[i]==sc[i];i++);
-        if(sc[i]=='\0'&&st[i]=='\0')
+        for(i=0;b==Bk.br&&Bk.bId[i]!='\0'&&st[i]!='\0'&&st[i]==Bk.bId[i];i++);
+        if(Bk.bId[i]=='\0'&&st[i]=='\0')
         {
             cont++;
             if(x==1)
             {
-                q--;
+                Bk.quantity--;
             }
             else
             {
-                q++;
+                Bk.quantity++;
             }
             intf.seekp(intf.tellp()-sizeof(*this));
             intf.write((char*)this,sizeof(*this));
@@ -656,11 +656,8 @@ void Librarian::der(char st[],int b,int x)
     intf.close();
 }
 
-void get()
+void Librarian::get()
 {
-    Librarian libr;
-    Student stu;
-    repeat :
    int i;
         cout<<"\n\t*********** LIBRARY MANAGEMENT SYSTEM ***********\n"<<"\n\t\t\t    Library Management System C++\n";
         cout<<"\n\t\t>>Please Choose Any Option To login \n";
@@ -670,22 +667,23 @@ void get()
         if(i==1)
         {
             system("cls");
-            stu.student();
+            student_menu();
         }
         else if(i==2)
-            libr.pass();
+            pass();
 
         else if(i==3)
             exit(0);
         else
         {
-            cout<<"\n\t\tPlease enter correct option :(\n\n\t\t ****** PRESS ANYTHINGS TO GO BACK ****** \n" ;
+            cout<<"\n\t\tPlease enter correct option :(\n\n\t\t ****** PRESS ANY KEY TO GO BACK ****** \n" ;
             getch();
             system("CLS");
-            goto repeat;
+            get();
         }
 }
-void Student::student()
+
+void Librarian::student_menu()
 {
     int i;
         cout<<"\n\t************ WELCOME STUDENT ************\n";
@@ -709,9 +707,10 @@ void Student::student()
                 cout<<"\n\t\tPlease enter correct option :(";
                 getch();
                 system("cls");
-                student();
+                student_menu();
             }
 }
+
 void Librarian::pass()
 {
     int i=0;
@@ -761,6 +760,7 @@ void Librarian::librarian()
         cout<<"\n\t\t>>Please Choose One Option:\n";
         cout<<"\n\t\t1.View BookList\n\n\t\t2.Search for a Book\n\n\t\t3.Modify/Add Book\n\n\t\t4.Issue Book\n\n\t\t5.Go to main menu\n\n\t\t6.Change Password\n\n\t\t7.Close Application\n";
         cout<<"\n\t\tEnter your choice : ";
+
         cin>>i;
         switch(i)
         {
@@ -779,15 +779,16 @@ void Librarian::librarian()
                     break;
             case 7:exit(0);
             default:cout<<"\n\t\tPlease enter correct option :(";
-            getch();
-            system("cls");
-            librarian();
+                getch();
+                system("cls");
+                librarian();
+                break;
         }
 }
 void Librarian::password()
 {
     int i=0,j=0;
-    char ch,st[21],ch1[21]={"learnprogramo"};
+    char ch,st[21],ch1[21]={"abc123"};
     system("cls");
     cout<<"\n\n\t\tEnter Old Password : ";
     while(1)
@@ -852,6 +853,7 @@ void Librarian::password()
         }
         }
         ofstream outf("password.txt");
+        cout << st;
         outf<<st;
         outf.close();
         cout<<"\n\n\t\tYour Password has been changed Successfully.";
