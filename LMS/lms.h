@@ -14,7 +14,7 @@ class Student;
 
 class Books
 {
-    public:
+    private:
 	char bname[50];
 	char aname[20];
     char bPublisher[50];
@@ -34,6 +34,7 @@ class Books
         quantity=0;
         br=0;
     }
+    friend class Librarian;
 
 };         //class ends here
 
@@ -59,7 +60,7 @@ class Lib
 */
 
 class Student{
-   public:
+   private:
     char book_name[50];
     char book_Id[6];
     char stu_name[50];
@@ -79,7 +80,7 @@ public:
         mmm=0;
         yyy=0;
     }
-
+    friend class Librarian;
 } ;    // Class End Here
 
 class Librarian {

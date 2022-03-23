@@ -121,7 +121,7 @@ void Librarian::show(int i)
                                             {
                                                 cont++;
                                                 getdata();
-                                                intf.seekp(intf.tellp()-sizeof(*this));
+                                                intf.seekp((int)intf.tellp()-(int)sizeof(*this));
                                                 intf.write((char*)this,sizeof(*this));
                                                 break;
                                             }
@@ -144,7 +144,7 @@ void Librarian::show(int i)
                                             {
                                                 cont++;
                                                 getdata();
-                                                intf.seekp(intf.tellp()-sizeof(*this));
+                                                intf.seekp((int)intf.tellp()-(int)sizeof(*this));
                                                 intf.write((char*)this,sizeof(*this));
                                                 break;
                                             }
@@ -303,8 +303,8 @@ void Librarian::show(int i)
   int Librarian::branch(int x)
   {
       int i;
-      cout<<"\n\t\t>>Please Choose one Branch :-\n";
-      cout<<"\n\t\t1.Class 12th\n\n\t\t2.CS\n\n\t\t3.EC\n\n\t\t4.CIVIL\n\n\t\t5.MECHANICAL\n\n\t\t6.GK Books\n\n\t\t7.Go to main menu\n";
+      cout<<"\n\t\t>>Please Choose one Stream :-\n";
+      cout<<"\n\t\t1.Class 12th\n\n\t\t2.CS\n\n\t\t3.EC\n\n\t\t4.CIVIL\n\n\t\t5.Biography\n\n\t\t6.GK Books\n\n\t\t7.Go to main menu\n";
       cout<<"\n\t\tEnter youur choice : ";
       cin>>i;
       switch(i)
@@ -331,6 +331,7 @@ void Librarian::show(int i)
                     system("cls");
                     branch(x);
         }
+   return 0;
   }
 
   void Librarian::see(int x)
@@ -527,7 +528,7 @@ void Librarian::issue()
                     cout<<"\n\t\tEnter New Date : ";
                     cin>>Stu.ddd>>Stu.mmm>>Stu.yyy;
                     fine(d,m,y,Stu.ddd,Stu.mmm,Stu.yyy); //fn1
-                    intf.seekp(intf.tellp()-sizeof(*this)); //fn3
+                    intf.seekp((int)intf.tellp()-(int)sizeof(*this)); //fn3
                     intf.write((char*)this,sizeof(*this)); //fn5
                     cout<<"\n\n\t\tReissue successfully."; //fn3
                     break;
@@ -639,7 +640,7 @@ void Librarian::der(char st[],int b,int x)
             {
                 Bk.quantity++;
             }
-            intf.seekp(intf.tellp()-sizeof(*this));
+            intf.seekp((int)intf.tellp()-(int)sizeof(*this));
             intf.write((char*)this,sizeof(*this));
             break;
         }
