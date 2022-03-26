@@ -7,59 +7,35 @@
 #include<fstream>
 #include<string.h>
 #include<conio.h>
+#include"books.h"
 using namespace std;
 
-class Librarian ;
-class Student;
-
-class Books
-{
-    private:
-	char bname[50];
-	char aname[20];
-    char bPublisher[50];
-    char bId[6];
-    int price ;
-    int quantity ;
-    int br;
+class Student {
+    private :
+        char student_name[50];
+        char student_ID[6];
+        int age;
+        int mobile_no;
+        char division;
+        char student_addr[100];
+        int num_book_parchase;
 
     public:
-    Books()
-    {
-        strcpy(bname,"NO Book Name");
-        strcpy(bId,"No Book ID");
-        strcpy(aname,"No Author Name");
-        strcpy(bPublisher,"No Publisher Name");
-        price=0;
-        quantity=0;
-        br=0;
-    }
-    friend class Librarian;
+        Student()
+        {
+            strcpy(student_name , "No Student Name");
+            strcpy(student_ID , "No ID");
+            strcpy(student_addr , "No Addr available");
+            age = 0 ;
+            division = '\0';
+            mobile_no = 0 ;
+            num_book_parchase = 0 ;
+        }
 
-};         //class ends here
-
-/*
-class Lib
-{
-   protected:
-       char bookname[100],auname[50],sc[20],sc1[50];
-       int q,B,p;
-       Lib()
-       {
-           strcpy(bookname,"NO Book Name");
-           strcpy(auname,"No Author Name");
-           strcpy(sc,"No Book ID");
-           strcpy(sc1,"No Publisher Name");
-           q=0;
-           B=0;
-           p=0;
-       }
-
-
+        void add_student();
 };
-*/
 
-class Student{
+class Transaction{
    private:
     char book_name[50];
     char book_Id[6];
@@ -70,7 +46,7 @@ class Student{
     int yyy;
 
 public:
-    Student()
+    Transaction()
     {
         strcpy(book_name,"NO Book Name");
         strcpy(book_Id,"No Book ID");
@@ -86,26 +62,20 @@ public:
 class Librarian {
 
 Books Bk;
-Student Stu;
+Transaction Trans;
 public:
 
-    void booklist(int);
-    void see(int);
-    void student_menu();
-    int branch(int);
-    void show(int);
     void pass();
     void password();
-    void get();
-    void getdata();
     void modify();
     void issue();
-    void librarian();
     void der(char[],int,int);
     void fine(int,int,int,int,int,int);
 
 };
 
-
-
+int branch(int);
+void librarian_menu();
+void student_menu();
+void get();
 #endif // LMS_H_INCLUDED

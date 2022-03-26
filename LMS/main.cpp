@@ -5,8 +5,11 @@ using namespace std;
 int main()
 {
     Librarian lib;
-    lib.get();
+    get();
     getch();
 
     return 0;
 }
+
+
+
