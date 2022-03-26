@@ -1,5 +1,6 @@
 #include <iostream>
-#include "lms.cpp"
+#include "lms.h"
+
 using namespace std;
 
 int main()

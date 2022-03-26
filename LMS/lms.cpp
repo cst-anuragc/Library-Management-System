@@ -1,5 +1,4 @@
 #include "lms.h"
-#include "books.h"
 
   void Librarian::modify()
   {
@@ -231,40 +230,7 @@
     system("cls");
     librarian_menu();
 
-  }
-  int branch(int x)
-  {
-      int i;
-      cout<<"\n\t\t>>Please Choose one Stream :-\n";
-      cout<<"\n\t\t1.Class 12th\n\n\t\t2.CS\n\n\t\t3.EC\n\n\t\t4.CIVIL\n\n\t\t5.Biography\n\n\t\t6.GK Books\n\n\t\t7.Go to main menu\n";
-      cout<<"\n\t\tEnter youur choice : ";
-      cin>>i;
-      switch(i)
-      {
-          case 1: return 1;
-                  break;
-          case 2: return 2;
-                  break;
-          case 3: return 3;
-                  break;
-          case 4: return 4;
-                  break;
-          case 5: return 5;
-                  break;
-          case 6: return 6;
-                  break;
-          case 7: system("cls");
-                  if(x==1)
-                    student_menu();
-                  else
-                    librarian_menu();
-          default : cout<<"\n\t\tPlease enter correct option :(";
-                    getch();
-                    system("cls");
-                    branch(x);
-        }
-   return 0;
-  }
+}
 
 void Librarian::issue()
 {
@@ -295,10 +261,27 @@ void Librarian::issue()
         cin.getline(Trans.stu_Id,6);
         cout<<"\n\t\tEnter date (dd mm yy): ";
         cin>>Trans.ddd>>Trans.mmm>>Trans.yyy;
-        ofstream outf("student.txt",ios::app | ios::binary);
-        outf.write((char*)this,sizeof(*this));
-        outf.close();
-        cout<<"\n\n\t\tIssue Successfully.\n";
+        ifstream inf("student.txt" ,ios::binary);
+        cont = 1;
+        while(inf.read((char*)&Stu,sizeof(Student)))
+        {
+            int k = strcmp(Trans.stu_Id  ,Stu.student_ID );
+            if(k == 0)
+                cont = 0;
+        }
+        if(cont == 0)
+        {
+            ofstream outf("transaction.txt",ios::app | ios::binary);
+            outf.write((char*)this,sizeof(*this));
+            outf.close();
+            inf.close();
+            cout<<"\n\n\t\tIssue Successfully.\n";
+        }
+        else
+        {
+            inf.close();
+            cout << "\n\n\tStudent Not allowed for Issuing Book , Student Not a member of Library first be a member." << endl;
+        }
     }
     else if(i==2)
     {
@@ -326,7 +309,7 @@ void Librarian::issue()
         cout<<"\n\n\t\tEnter Student's ID : ";
         cin.getline(st1,6);
         system("cls");
-        ifstream intf("student.txt",ios::binary);
+        ifstream intf("transaction.txt",ios::binary);
         intf.read((char*)this,sizeof(*this));
         cont=0;
         while(!intf.eof())
@@ -362,7 +345,7 @@ void Librarian::issue()
     cin.getline(st,50);
     cout<<"\n\t\tEnter Book's ID : ";
     cin.getline(st1,6);
-    fstream intf("student.txt",ios::in|ios::out|ios::ate | ios::binary);
+    fstream intf("transaction.txt",ios::in|ios::out|ios::ate | ios::binary);
     intf.seekg(0);
     intf.read((char*)this,sizeof(*this));
     while(!intf.eof())
@@ -401,7 +384,7 @@ void Librarian::issue()
     cout<<"\n\t\tEnter Present date : ";
     cin>>d>>m>>y;
     ofstream outf("temp.txt",ios::app);
-    ifstream intf("student.txt",ios::binary);
+    ifstream intf("transaction.txt",ios::binary);
     intf.read((char*)this,sizeof(*this));
     while(!intf.eof())
         {
@@ -424,8 +407,8 @@ void Librarian::issue()
     intf.close();
     outf.close();
     getch();
-    remove("student.txt");
-    rename("temp.txt","student.txt");
+    remove("transaction.txt");
+    rename("temp.txt","transaction.txt");
     }
     else if(i==6)
     {
@@ -649,36 +632,315 @@ void Librarian::password()
 
 void Student::add_student()
 {
+    int i = 0 ;
+    system("cls");
+    cout<<"\n\t\t>>Please Choose one option :-\n";
+    cout<<"\n\t\t1.Add Student\n\n\t\t2.Show Student List\n\n\t\t3.Go back\n";
+    cout<<"\n\n\t\tEnter your choice : ";
+    cin>>i;
+    if(i==1)
+    {
+        system("cls");
+        get_student_data();
+        ofstream outf("Student.txt",ios::app|ios::binary);
+        outf.write((char*)this,sizeof(*this));
+        outf.close();
+        cout<<"\n\t\tMember added Successfully.\n";
+    }
+    else if(i == 2)
+    {
+        int r =0 ;
+        system("cls");
+        ifstream intf("student.txt",ios::binary);
+        if(!intf)
+            cout<<"\n\t\tFile Not Found.";
+        else
+        {
+        cout<<"\n\t    ************ Student's List ************ \n\n";
+            while(intf.read((char*)this,sizeof(*this)))
+            {
+                r++;
+                cout<<"\n\t\t********** "<<r<<". ********** \n";
+                show_student();
+            }
+        }
+    }
+    else if(i ==3)
+    {
+        system("cls");
+        librarian_menu();
+    }
+    else
+    {
+        cout<<"\n\t\tWrong Input.\n";
+        cout<<"\n\t\tPress any key to continue.....";
+        getch();
+        system("cls");
+        add_student();
+    }
+    cout<<"\n\t\tPress any key to continue.....";
+    getch();
+    system("cls");
+    librarian_menu();
 
 }
 
+void Student::show_student()
+{
+    cout<<"\n\t\tStudent Name : "<<student_name<<endl;
+    cout<<"\n\t\tStudent ID : "<<student_ID<<endl;
+    cout<<"\n\t\tStudent age : "<<age<<endl;
+    cout<<"\n\t\tStudent Mobile No. : "<<mobile_no<<endl;
+    cout<<"\n\t\tStudent division : "<<division<<endl;
+    cout<<"\n\t\tStudent Address : "<<student_addr<<endl;
+    cout<< "\n\t\tNum of perchase Book : "<<num_book_parchase<<endl;
+}
+
+void Student::get_student_data()
+{
+    fflush(stdin);
+    cout<<"\n\t\tEnter the details :-\n";
+    cout<<"\n\t\tEnter Student's Name : ";
+    cin.getline(student_name,50);
+    cout<<"\n\t\tEnter Student's ID : ";
+    cin.getline(student_ID,6);
+    cout<<"\n\t\tEnter Student's age : ";
+    cin >> age;
+    cout<<"\n\t\tEnter Student Mo. number : ";
+    cin >> mobile_no;
+    cout<<"\n\t\tEnter Student Addr : ";
+    cin >> student_addr;
+    cout<<"\n\t\tEnter division : ";
+    cin >> division;
+
+}
+
+void Books::getdata()
+{
+                    int i;
+                    fflush(stdin);
+                    cout<<"\n\t\tEnter the details :-\n";
+                    cout<<"\n\t\tEnter Book's Name : ";
+                    cin.getline(bname,50);
+                    for(i=0;bname[i]!='\0';i++)
+                    {
+                        if(bname[i]>='a'&&bname[i]<='z')
+                            bname[i]-=32;
+                    }
+                    cout<<"\n\t\tEnter Author's Name : ";
+                    cin.getline(aname,20);
+                    cout<<"\n\t\tEnter Publication name : ";
+                    cin.getline(bPublisher,50);
+                    cout<<"\n\t\tEnter Book's ID : ";
+                    cin.getline(bId,6);
+                    cout<<"\n\t\tEnter Book's Price : ";
+                    cin>>price;
+                    cout<<"\n\t\tEnter Book's Quantity : ";
+                    cin>>quantity;
+}
+
+void Books::show(int i)
+{
+    cout<<"\n\t\tBook Name : "<<bname<<endl;
+    cout<<"\n\t\tBook's Author Name : "<<aname<<endl;
+    cout<<"\n\t\tBook's ID : "<<bId<<endl;
+    cout<<"\n\t\tBook's Publication : "<<bPublisher<<endl;
+    if(i == 2)
+    {
+    cout<<"\n\t\tBook's Price : "<<price<<endl;
+    cout<<"\n\t\tBook's Quantity : "<<quantity<<endl;
+    }
+}
+
+  void Books::booklist(int i)
+  {
+                int b,r=0;
+                system("cls");
+                b=branch(i);
+                system("cls");
+                ifstream intf("Booksdata.txt",ios::binary);
+                if(!intf)
+                    cout<<"\n\t\tFile Not Found.";
+                else
+                {
+                    cout<<"\n\t    ************ Book List ************ \n\n";
+                    intf.read((char*)this,sizeof(*this));
+                    while(!intf.eof())
+                    {
+                        if(b==br)
+                        {
+                            if(quantity==0 && i == 1)
+                            {
+
+                            }
+                            else
+                            {
+                                r++;
+                                cout<<"\n\t\t********** "<<r<<". ********** \n";
+                                show(i);
+                            }
+                        }
+                        intf.read((char*)this,sizeof(*this));
+                    }
+                }
+                cout<<"\n\t\tPress any key to continue.....";
+                getch();
+                system("cls");
+                if(i == 1)
+                    student_menu();
+                else
+                    librarian_menu();
+}
+
+  void Books::see(int x)
+  {
+      int i,b,cont=0;
+      char ch[100];
+      system("cls");
+      b=branch(x);
+      ifstream intf("Booksdata.txt",ios::binary);
+        if(!intf)
+        {
+            cout<<"\n\t\tFile Not Found.\n";
+            cout<<"\n\t\t->Press any key to continue.....";
+            getch();
+            system("cls");
+            if(x==1)
+                student_menu();
+            else
+                librarian_menu();
+        }
+
+      system("cls");
+      cout<<"\n\t\tPlease Choose one option :-\n";
+      cout<<"\n\t\t1.Search By Name\n\n\t\t2.Search By Book's ID\n";
+      cout<<"\n\t\tEnter Your Choice : ";
+      cin>>i;
+      fflush(stdin);
+      intf.read((char*)this,sizeof(*this));
+      if(i==1)
+      {
+          cout<<"\n\t\tEnter Book's Name : ";
+          cin.getline(ch,100);
+          system("cls");
+          while(!intf.eof())
+          {
+            for(i=0;b==br&&quantity!=0&&bname[i]!='\0'&&ch[i]!='\0'&&(ch[i]==bname[i]||ch[i]==bname[i]+32);i++);
+            if(bname[i]=='\0'&&ch[i]=='\0')
+                {
+                        cout<<"\n\t\tBook Found :-\n";
+                        show(x);
+                        cont++;
+                        break;
+                }
+             intf.read((char*)this,sizeof(*this));
+          }
+      }
+          else if(i==2)
+          {
+          cout<<"\n\t\tEnter Book's ID : ";
+          cin.getline(ch,100);
+          system("cls");
+          while(!intf.eof())
+          {
+              for(i=0;b==br&&quantity!=0&&bId[i]!='\0'&&ch[i]!='\0'&&ch[i]==bId[i];i++);
+              if(bId[i]=='\0'&&ch[i]=='\0')
+                {
+                            cout<<"\n\t\tBook Found :-\n";
+                            show(x);
+                            cont++;
+                            break;
+                }
+               intf.read((char*)this,sizeof(*this));
+          }
+
+          }
+          else
+          {
+             cont++;
+             cout<<"\n\t\tPlease enter correct option :(";
+             getch();
+             system("cls");
+             see(x);
+          }
+          intf.close();
+          if(cont==0)
+              cout<<"\n\t\tThis Book is not available :( \n";
+
+    cout<<"\n\t\tPress any key to continue.....";
+    getch();
+    system("cls");
+    if(x == 1)
+        student_menu();
+    else
+        librarian_menu();
+  }
+
+
+
+  int branch(int x)
+  {
+      int i;
+      cout<<"\n\t\t>>Please Choose one Stream :-\n";
+      cout<<"\n\t\t1.Class 12th\n\n\t\t2.CS\n\n\t\t3.EC\n\n\t\t4.CIVIL\n\n\t\t5.Biography\n\n\t\t6.GK Books\n\n\t\t7.Go to main menu\n";
+      cout<<"\n\t\tEnter youur choice : ";
+      cin>>i;
+      switch(i)
+      {
+          case 1: return 1;
+                  break;
+          case 2: return 2;
+                  break;
+          case 3: return 3;
+                  break;
+          case 4: return 4;
+                  break;
+          case 5: return 5;
+                  break;
+          case 6: return 6;
+                  break;
+          case 7: system("cls");
+                  if(x==1)
+                    student_menu();
+                  else
+                    librarian_menu();
+          default : cout<<"\n\t\tPlease enter correct option :(";
+                    getch();
+                    system("cls");
+                    branch(x);
+        }
+   return 0;
+}
 
 void librarian_menu()
 {
     Books B_Temp;
     Librarian L_Temp;
+    Student Stu;
     int i;
         cout<<"\n\t************ WELCOME LIBRARIAN ************\n";
         cout<<"\n\t\t>>Please Choose One Option:\n";
-        cout<<"\n\t\t1.View BookList\n\n\t\t2.Search for a Book\n\n\t\t3.Modify/Add Book\n\n\t\t4.Issue Book\n\n\t\t5.Go to main menu\n\n\t\t6.Change Password\n\n\t\t7.Close Application\n";
+        cout<<"\n\t\t1.Add_Member\n\n\t\t2.View BookList\n\n\t\t3.Search for a Book\n\n\t\t4.Modify/Add Book\n\n\t\t5.Issue Book\n\n\t\t6.Go to main menu\n\n\t\t7.Change Password\n\n\t\t8.Close Application\n";
         cout<<"\n\t\tEnter your choice : ";
         cin>>i;
         switch(i)
         {
-            case 1:B_Temp.booklist(2);
+            case 1:Stu.add_student();
+                    break;
+            case 2:B_Temp.booklist(2);
                      break;
-            case 2:B_Temp.see(2);
+            case 3:B_Temp.see(2);
                      break;
-            case 3:L_Temp.modify();
+            case 4:L_Temp.modify();
                      break;
-            case 4:L_Temp.issue();
+            case 5:L_Temp.issue();
                      break;
-            case 5:system("cls");
+            case 6:system("cls");
                      get();
                      break;
-            case 6:L_Temp.password();
+            case 7:L_Temp.password();
                     break;
-            case 7:exit(0);
+            case 8:exit(0);
             default:cout<<"\n\t\tPlease enter correct option :(";
                 getch();
                 system("cls");
@@ -743,4 +1005,3 @@ void get()
             get();
         }
 }
-
