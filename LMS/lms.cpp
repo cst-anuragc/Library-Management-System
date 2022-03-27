@@ -259,7 +259,7 @@ void Librarian::issue() { //Issue function used for Issuing/View Issuing/Search/
                  << endl;
         }
     } else if (i == 2) {
-        ifstream intf("student.txt", ios::binary);
+        ifstream intf("transaction.txt", ios::binary);
         system("cls");
         cout << "\n\t\t->The Details are :-\n";
         intf.read((char*)this, sizeof(*this));
