@@ -67,7 +67,7 @@ class Books
 };
 
 class Student {
-    public :
+
         char student_name[50];
         char student_ID[6];
         int age;
@@ -88,6 +88,10 @@ class Student {
             num_book_parchase = 0 ;
         }
 
+        const char* studentId()
+        {
+            return student_ID;
+        }
         void add_student();
         void get_student_data();
         void show_student();

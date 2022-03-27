@@ -265,7 +265,8 @@ void Librarian::issue()
         cont = 1;
         while(inf.read((char*)&Stu,sizeof(Student)))
         {
-            int k = strcmp(Trans.stu_Id  ,Stu.student_ID );
+            const char* temp = Stu.studentId();
+            int k = strcmp(Trans.stu_Id  ,temp);
             if(k == 0)
                 cont = 0;
         }
