@@ -694,7 +694,6 @@ void Student::show_student()
     cout<<"\n\t\tStudent Mobile No. : "<<mobile_no<<endl;
     cout<<"\n\t\tStudent division : "<<division<<endl;
     cout<<"\n\t\tStudent Address : "<<student_addr<<endl;
-    cout<< "\n\t\tNum of perchase Book : "<<num_book_parchase<<endl;
 }
 
 void Student::get_student_data()
