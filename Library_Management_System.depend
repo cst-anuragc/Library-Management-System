@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1648363407 source:c:\users\anura\desktop\library_management_system\main.cpp
+	<iostream>
+	"lms.h"
+
+1648364040 c:\users\anura\desktop\library_management_system\lms.h
+	<conio.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<fstream>
+	<iostream>
+	<iostream>
+
+1648372831 source:c:\users\anura\desktop\library_management_system\lms.cpp
+	"lms.h"
+
